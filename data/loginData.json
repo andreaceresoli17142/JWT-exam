@@ -1,6 +1,40 @@
 {
   "TC0001": {
+    "accountType":"tc",
     "subj": ["MATH", "PHYSICS"],
+    "name": "Mario",
+    "surname": "Rossi",
+    "email": "roma@gimelli.com",
+    "pw": {
+      "salt": 425546,
+      "hash": "440598ef1377ca8fd88a549569ae725f241eb8c9a6fb38e092e3f6714e11ad1f"
+    }
+  },
+  "SD0001": {
+    "accountType":"sd",
+    "name": "Pippo",
+    "surname": "Mario",
+    "email": "andrea.ceresoli03@gmail.com",
+    "pw": {
+      "salt": 425546,
+      "hash": "440598ef1377ca8fd88a549569ae725f241eb8c9a6fb38e092e3f6714e11ad1f"
+    }
+  },
+  "SD0002": {
+    "accountType":"sd",
+    "name": "Franco",
+    "surname": "Bianchi",
+    "email": "frabia03@gimelli.com",
+    "pw": {
+      "salt": 425546,
+      "hash": "440598ef1377ca8fd88a549569ae725f241eb8c9a6fb38e092e3f6714e11ad1f"
+    }
+  },
+  "SD0003": {
+    "accountType":"sd",
+    "name": "Coso",
+    "surname": "Boh",
+    "email": "coboh@gimelli.com",
     "pw": {
       "salt": 425546,
       "hash": "440598ef1377ca8fd88a549569ae725f241eb8c9a6fb38e092e3f6714e11ad1f"

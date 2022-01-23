@@ -12,10 +12,10 @@ function main(){
 
     if( $_SERVER['REQUEST_METHOD'] === 'GET' ){
 
-        $email = $_GET['email'];
+        $userId = $_GET['userId'];
         $exam = $_GET['exam'];
 
-        $arrayKey = $email.":".$exam;
+        $arrayKey = $userId.":".$exam;
 
         $examsReservations["admissionReq"][$arrayKey]["show"] = false;
         file_put_contents("data/examData.json", json_encode($examsReservations));

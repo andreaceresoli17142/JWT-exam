@@ -6,12 +6,12 @@ if (session_status() == PHP_SESSION_NONE) {
     ]);
 }
 
-//require("errorLib.php");
+require("errorLib.php");
 
 function loginFromSession(){
 
-    if ( isset($_SESSION["teacherId"]) && isset($_SESSION["pw"]) ){
-        $mlCNT = $_SESSION["teacherId"];
+    if ( isset($_SESSION["userId"]) && isset($_SESSION["pw"]) ){
+        $mlCNT = $_SESSION["userId"];
         $pwCNT = $_SESSION["pw"];
 
         if ( $_SESSION["expt"] + 216000 < time() ){
@@ -19,15 +19,20 @@ function loginFromSession(){
             return true;
         }
 
-        if( isset($_POST['teacherId']) ){
-            if ($_POST['teacherId'] != $mlCNT){
+        if( isset($_POST['userId']) ){
+            if ($_POST['userId'] != $mlCNT){
                 return true;
             }
         }
         $strLogins = file_get_contents("data/loginData.json");
         $loginData = json_decode($strLogins, true);
         if( $loginData[$mlCNT]["pw"]["hash"] == $pwCNT){
-            include 'privateArea.php';
+            if ( $loginData[$mlCNT]["accountType"] == "tc" ){
+                include 'privateArea.php';
+            } else {
+                // include 'examReservation.php';
+                header("Location: http://localhost:3000/examReservation.php");
+            }
             return false;
         }
     }
@@ -37,39 +42,43 @@ function loginFromSession(){
 function main(){
     if( $_SERVER['REQUEST_METHOD'] === 'POST' ){
 
-        if( !isset($_POST['teacherId']) ){
-            echo str_replace("<!-- error -->","<div class=\"alert alert-danger\" role=\"alert\">please input teacher id </div>", file_get_contents("logInPage.html"));
+        if( !isset($_POST['userId']) ){
+            echo throwBsError("<!-- error -->","please input teacher id", file_get_contents("logInPage.html"));
             return;
         }
 
         if( !isset($_POST['pw']) ){
-            echo str_replace("<!-- error -->","<div class=\"alert alert-danger\" role=\"alert\">please input password </div>", file_get_contents("logInPage.html"));
+            echo throwBsError("<!-- error -->","please input password", file_get_contents("logInPage.html"));
             return;
         }
 
-        $teacherId = $_POST['teacherId'];
+        $userId = $_POST['userId'];
 
         $strLogins = file_get_contents("data/loginData.json");
         $loginData = json_decode($strLogins, true);
 
-        if ( !array_key_exists($teacherId, $loginData) ){
-            echo str_replace("<!-- error -->","<div class=\"alert alert-danger\" role=\"alert\">account with this teacher id does not exists </div>", file_get_contents("logInPage.html"));
+        if ( !array_key_exists($userId, $loginData) ){
+            echo throwBsError("<!-- error -->","account with this teacher id does not exists", file_get_contents("logInPage.html"));
             return;
         }
 
-        $pw = $loginData[$teacherId]["pw"]["hash"];
+        $pw = $loginData[$userId]["pw"]["hash"];
 
-        if( $pw == hash( "sha256", $loginData[$teacherId]["pw"]["salt"].$_POST['pw'], false)){
-            $_SESSION["teacherId"] = $teacherId;
+        if( $pw == hash( "sha256", $loginData[$userId]["pw"]["salt"].$_POST['pw'], false)){
+            $_SESSION["userId"] = $userId;
             $_SESSION["pw"] = $pw;
             $_SESSION["expt"] = time();
-            include 'privateArea.php';
-            // header("Location: http://localhost:3000/privateArea.html");
+            if ( $loginData[$userId]["accountType"] == "tc" ){
+                include 'privateArea.php';
+            } else {
+                // include 'examReservation.php';
+                header("Location: http://localhost:3000/examReservation.php");
+            }
             // echo "hello";
         }
         else{
             // echo "is this";
-            echo str_replace( "<!-- error -->", "<div class=\"alert alert-danger\" role=\"alert\">wrong id or password</div>",file_get_contents("loginPage.html"));
+            echo throwBsError( "<!-- error -->", "wrong id or password",file_get_contents("loginPage.html"));
         }
         return;
     }

@@ -1,5 +1,11 @@
 <?php
 
+if (session_status() == PHP_SESSION_NONE) {
+    session_start([
+        'cookie_lifetime' => 216000,
+    ]);
+}
+
 require("errorLib.php");
 
 function valid_email($str) {
@@ -25,42 +31,21 @@ function main(){
 
         $examsReservations = json_decode(file_get_contents("data/examData.json"), true);
 
-        if( !isset($_POST['name']) ){
-            echo throwBsError("<!-- error -->","please input name", fillExams());
-            return;
-        }
-
-        if( !isset($_POST['surname']) ){
-            echo throwBsError("<!-- error -->","please input surname", fillExams());
-            return;
-        }
-
-        if( !isset($_POST['email']) ){
-            echo throwBsError("<!-- error -->","please input email", fillExams());
-            return;
-        }
+        $userId = $_SESSION['userId'];
+        $exam = $_POST['exam'];
+        // echo $userId;
 
         if( !in_array($_POST['exam'], $examJson) ){
             echo throwBsError("<!-- error -->","exam does not exists", fillExams());
             return;
         }
 
-        if( !valid_email($_POST['email']) ){
-            echo throwBsError("<!-- error -->","invalid email address", fillExams());
-            return;
-        }
-
-        $name = $_POST['name'];
-        $surname = $_POST['surname'];
-        $email = $_POST['email'];
-        $exam = $_POST['exam'];
-
-        if( isset( $examsReservations["admissionReq"][$email.":".$exam] ) ){
+        if( isset( $examsReservations["admissionReq"][$userId.":".$exam] ) ){
             echo throwBsError("<!-- error -->","reservation already done", fillExams());
             return;
         }
 
-        $addExamReservation = [ $email.":".$exam =>[ "email" => $email,  "name" => $name, "surname" => $surname, "exam" => $exam, "show" => true ]];
+        $addExamReservation = [ $userId.":".$exam =>[ "userId" => $userId, "exam" => $exam, "show" => true ]];
         $examsReservations["admissionReq"] += $addExamReservation;
         file_put_contents("data/examData.json", json_encode($examsReservations));
     }

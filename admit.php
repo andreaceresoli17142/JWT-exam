@@ -16,21 +16,23 @@ function main(){
 
     if( $_SERVER['REQUEST_METHOD'] === 'GET' ){
 
-        $email = $_GET['email'];
+        $userId = $_GET['userId'];
         $exam = $_GET['exam'];
 
-        $arrayKey = $email.":".$exam;
+        $arrayKey = $userId.":".$exam;
 
         $examReq = $examsReservations["admissionReq"][$arrayKey];
         unset($examsReservations["admissionReq"][$arrayKey]);
-        $examsReservations["admitted"] += [$arrayKey=>[ "email" => $examReq["email"], "name" => $examReq["name"], "surname" => $examReq["surname"], "exam" => $examReq["exam"] ]];
+
+        $examsReservations["admitted"] += [$arrayKey=>[ "userId" => $userId, "exam" => $examReq["exam"] ]];
 
         try{
+            $userData = json_decode(file_get_contents("data/loginData.json"), true);
             //throw new Exception("testing exeptions");
             //TODO: put information in a JWT and send it in the email
             $JWToken = "";
 
-            $to      = $email;
+            $to      = $userData[$userId]["email"];
             $subject = "$exam exam admission request";
             $message = "you have been admitted to the exam.\nuse this token to access the exam:\n$JWToken";
             $headers = 'From: examManager@gimelli.com' . "\r\n" .

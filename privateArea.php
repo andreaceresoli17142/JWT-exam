@@ -6,13 +6,14 @@ if (session_status() == PHP_SESSION_NONE) {
     ]);
 }
 
-    require("errorLib.php");
+    //require("errorLib.php");
 
     function debugToConsole($msg) {
         echo "<script>console.log(".json_encode($msg).")</script>";
     }
+    $loginData = json_decode(file_get_contents("data/loginData.json"), true);
 
-    $subjects = json_decode(file_get_contents("data/loginData.json"), true)[$_SESSION["teacherId"]]["subj"];
+    $subjects = $loginData[$_SESSION["userId"]]["subj"];
     // var_dump($subjects);
 
     $examsReservations = json_decode(file_get_contents("data/examData.json"), true);
@@ -25,7 +26,7 @@ if (session_status() == PHP_SESSION_NONE) {
 
         if ( in_array(preg_split ("/\-/", $singleReq["exam"])[0], $subjects)  && $singleReq["show"] == true ){
 
-            $admissionReq .= " ".$singleReq["name"]." ".$singleReq["surname"]." ".$singleReq["exam"]." <a href=\"http://localhost:3000/admit.php?email=".urlencode($singleReq["email"])."&exam=".urlencode($singleReq["exam"])."\">admit</a> <a href=\"http://localhost:3000/refute.php?email=".urlencode($singleReq["email"])."&exam=".urlencode($singleReq["exam"])."\">refute</a>  <br>";
+            $admissionReq .= " ".$loginData[$singleReq['userId']]["name"]." ".$loginData[$singleReq['userId']]["surname"]." ".$singleReq["exam"]." <a href=\"http://localhost:3000/admit.php?userId=".urlencode($singleReq['userId'])."&exam=".urlencode($singleReq["exam"])."\">admit</a> <a href=\"http://localhost:3000/refute.php?userId=".urlencode($singleReq['userId'])."&exam=".urlencode($singleReq["exam"])."\">refute</a>  <br>";
         }
     }
 
@@ -37,7 +38,7 @@ if (session_status() == PHP_SESSION_NONE) {
 
         if ( in_array(preg_split ("/\-/", $singleReq["exam"])[0], $subjects) ){
 
-            $admitted .= " ".$singleReq["name"]." ".$singleReq["surname"]." ".$singleReq["exam"]." <br>";
+            $admitted .= " ".$loginData[$singleReq['userId']]["name"]." ".$loginData[$singleReq['userId']]["surname"]." ".$singleReq["exam"]." <br>";
         }
     }
 
