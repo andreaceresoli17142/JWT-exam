@@ -1,0 +1,18 @@
+{
+    "exams":[
+        "MATH-1",
+        "MATH-2",
+        "MATH-3",
+        "PHYSICS-1",
+        "PHYSICS-2",
+        "INFOTECH-1",
+        "INFOTECH-2",
+        "INFOTECH-3",
+        "NETWORKING-1",
+        "NETWORKING-2",
+        "NETWORKING-3",
+        "ENGLISH-1",
+        "ENGLISH-2",
+        "ENGLISH-3"
+    ]
+}

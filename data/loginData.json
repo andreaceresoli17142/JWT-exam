@@ -1,0 +1,9 @@
+{
+  "TC0001": {
+    "subj": ["MATH", "PHYSICS"],
+    "pw": {
+      "salt": 425546,
+      "hash": "440598ef1377ca8fd88a549569ae725f241eb8c9a6fb38e092e3f6714e11ad1f"
+    }
+  }
+}
