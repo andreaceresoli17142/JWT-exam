@@ -26,7 +26,7 @@ if (session_status() == PHP_SESSION_NONE) {
 
         if ( in_array(preg_split ("/\-/", $singleReq["exam"])[0], $subjects)  && $singleReq["show"] == true ){
 
-            $admissionReq .= " ".$loginData[$singleReq['userId']]["name"]." ".$loginData[$singleReq['userId']]["surname"]." ".$singleReq["exam"]." <a href=\"http://localhost:3000/admit.php?userId=".urlencode($singleReq['userId'])."&exam=".urlencode($singleReq["exam"])."\">admit</a> <a href=\"http://localhost:3000/refute.php?userId=".urlencode($singleReq['userId'])."&exam=".urlencode($singleReq["exam"])."\">refute</a>  <br>";
+            $admissionReq .= " ".$loginData[$singleReq['userId']]["name"]." ".$loginData[$singleReq['userId']]["surname"]." ".$singleReq["exam"]." <a href=\"http://localhost:3000/admit.php?userId=".urlencode($singleReq['userId'])."&exam=".urlencode($singleReq["exam"])."\" target=\"_new\">admit</a> <a href=\"http://localhost:3000/refute.php?userId=".urlencode($singleReq['userId'])."&exam=".urlencode($singleReq["exam"])."\">refute</a>  <br>";
         }
     }
 

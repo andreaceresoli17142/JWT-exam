@@ -1,1 +1,22 @@
-{"admissionReq":{"SD0001:MATH-1":{"userId":"SD0001","exam":"MATH-1","show":true},"SD0002:MATH-3":{"userId":"SD0002","exam":"MATH-3","show":true}},"admitted":{"SD0003:PHYSICS-1":{"userId":"SD0003","exam":"PHYSICS-1"}},"tmp":{"admissionReq":{"pippoBianchi@gimelli.com:MATH-1":{"email":"pippoBianchi@gimelli.com","name":"pippo","surname":"bianchi","exam":"MATH-1","show":false},"andrea.ceresoli03@gmail.com:MATH-1":{"email":"andrea.ceresoli03@gmail.com","name":"Andrea","surname":"Ceresoli","exam":"MATH-1","show":false}},"admitted":{"roma@gimelli.com:PHYSICS-1":{"email":"roma@gimelli.com","name":"rossi","surname":"mario","exam":"PHYSICS-1"}}}}
+{
+  "admissionReq": {
+    "SD0002:MATH-3": { "userId": "SD0002", "exam": "MATH-3", "show": true },
+    "SD0001:MATH-1": { "userId": "SD0001", "exam": "MATH-1", "show": true },
+    "SD0003:PHYSICS-1": {
+      "userId": "SD0003",
+      "exam": "NETWORKING-1",
+      "show": true
+    },
+    "SD0001:ENGLISH-2": {
+      "userId": "SD0001",
+      "exam": "ENGLISH-2",
+      "show": true
+    },
+    "SD0002:INFOTECH-1": {
+      "userId": "SD0002",
+      "exam": "INFOTECH-1",
+      "show": true
+    }
+  },
+  "admitted": []
+}

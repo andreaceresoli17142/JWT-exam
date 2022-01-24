@@ -26,6 +26,7 @@ function fillExams(){
 function main(){
 
     $examJson = json_decode(file_get_contents("data/examsList.json"), true)["exams"];
+    $examHtml = file_get_contents("examReservation.html");
 
     if( $_SERVER['REQUEST_METHOD'] === 'POST' ){
 
@@ -48,6 +49,7 @@ function main(){
         $addExamReservation = [ $userId.":".$exam =>[ "userId" => $userId, "exam" => $exam, "show" => true ]];
         $examsReservations["admissionReq"] += $addExamReservation;
         file_put_contents("data/examData.json", json_encode($examsReservations));
+        $examHtml = str_replace( "<!-- success -->", "<div class=\"alert alert-success\" role=\"alert\">login successfull</div>", $examHtml);
     }
 
     $examArr = "";
@@ -55,7 +57,7 @@ function main(){
     foreach( $examJson as $exam ){
         $examArr .= "<option value=\"$exam\">$exam</option>";
     }
-    echo str_replace( "<!-- exams -->", $examArr, file_get_contents("examReservation.html"));
+    echo str_replace( "<!-- exams -->", $examArr, $examHtml);
 }
     main();
 ?>

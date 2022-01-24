@@ -5,22 +5,20 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>sign in page</title>
+    <title>access exam</title>
 </head>
 <body>
-    <h1>sign in page</h1>
-    <form action="signIn.php" method="post">
 
-        <input type="text" name="usr" id="usrInp" placeholder="Username">
+    <h1>access exam</h1>
+
+    <form action="exam.php" method="post">
+        <input type="text" name="token" id="jwtInp" placeholder="jwt" required>
         <br>
-
-        <input type="text" name="email" id="emailInp" placeholder="Email">
-        <br>
-
-        <input type="password" name="pw" id="pwInp" placeholder="Password">
-
         <input type="submit" value="submit">
     </form>
+    <br>
     <!-- error -->
+    <br>
+    <a href="http://localhost:3000/index.html"> go back </a>
 </body>
 </html>
